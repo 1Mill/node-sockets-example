@@ -7,3 +7,6 @@ setInterval(() => {
 	console.log('...')
 	io.emit('chat message', 'TESTING');
 }, 3000);
+io.on('connection', (socket) => {
+
+})
