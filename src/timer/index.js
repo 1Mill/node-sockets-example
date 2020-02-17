@@ -5,10 +5,9 @@ io.adapter(redisAdapter({ host: 'redis-service', port: 6379 }));
 
 // * Emit event to everybody
 setInterval(() => {
-	console.log('...')
 	io.emit('chat message', 'Everybody is getting this message...');
 }, 5000);
 
 io.on('connection', (socket) => {
-
+	console.log(socket)
 })
