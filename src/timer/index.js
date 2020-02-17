@@ -3,6 +3,7 @@ const io = require('socket.io')(http);
 const redisAdapter = require('socket.io-redis');
 io.adapter(redisAdapter({ host: 'redis-service', port: 6379 }));
 
+// * Emit event to everybody
 setInterval(() => {
 	console.log('...')
 	io.emit('chat message', 'TESTING');
