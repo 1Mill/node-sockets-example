@@ -2,6 +2,9 @@ const app = require('express')();
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
 
+const redisAdapter = require('socket.io-redis');
+io.adapter(redisAdapter({ host: 'redis-service', port: 6379 }));
+
 const HTTP_FILE = __dirname + '/index.html';
 const PORT = process.env.PORT;
 
