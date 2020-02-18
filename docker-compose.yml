@@ -4,25 +4,25 @@ services:
   client:
     build: ./src/client
     depends_on:
-      - redis-service
+      - redis
     ports:
       - 8080:8080
     volumes:
       - ./src/client/node_modules:/app/node_modules
       - ./src/client:/app
+  redis:
+    image: redis:5-alpine
   server:
     build: ./src/server
+    depends_on:
+      - redis
     volumes:
       - ./src/server/node_modules:/app/node_modules
       - ./src/server:/app
   timer:
     build: ./src/timer
     depends_on:
-      - redis-service
-    ports:
-      - 8081:8080
+      - redis
     volumes:
       - ./src/timer/node_modules:/app/node_modules
       - ./src/timer:/app
-  redis-service:
-    image: redis:5-alpine
