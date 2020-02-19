@@ -1,31 +1,12 @@
 const app = require('express')();
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
-
 const redisAdapter = require('socket.io-redis');
+
 io.adapter(redisAdapter({ host: 'redis', port: 6379 }));
-
-const HTTP_FILE = __dirname + '/index.html';
-const PORT = process.env.PORT;
-
 app.get('/', (req, res) => {
-	res.sendFile(HTTP_FILE);
+	res.sendFile(__dirname + '/index.html');
 });
-
-io.on('connection', (socket) => {
-	console.log('A user connected');
-
-	console.log(socket.id);
-
-	socket.on('chat message', (msg) => {
-		io.emit('chat message', msg);
-	});
-
-	socket.on('disconnect', function () {
-		console.log('A user disconnected');
-	});
-})
-
-http.listen(PORT, () => {
-	console.log(`listening on *:${PORT}`);
+http.listen(process.env.PORT, () => {
+	console.log(`listening on *:${process.env.PORT}`);
 });
