@@ -5,6 +5,7 @@ services:
     build: ./src/client
     depends_on:
       - redis
+      - server
     ports:
       - 8080:8080
     volumes:
@@ -14,6 +15,8 @@ services:
     image: redis:5-alpine
   server:
     build: ./src/server
+    ports:
+      - 8081:8080
     depends_on:
       - redis
     volumes:
